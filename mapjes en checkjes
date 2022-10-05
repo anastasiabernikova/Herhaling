@@ -1,0 +1,29 @@
+
+
+$Users = Import-CSV -Path C:\Users\Administrator\Desktop\hobbits.csv
+
+foreach($item in $Users){
+
+$Path = Test-Path -Path ($item.PATH + '\' + $item.NAME)
+
+ if($Path -eq $False){
+
+    if($item.ISFILE -eq 'yes'){
+
+        $FilePath = $item.PATH + '\' + $item.NAME + '.txt'
+
+        New-Item -Path $FilePath -ItemType File -Force}
+
+    elseif($item.ISFOLDER -eq 'yes'){
+
+        $FilePath1 = $item.PATH + '\' + $item.NAME
+
+        New-Item -Path $FilePath1 -ItemType Directory -Force
+    }     
+    
+}
+elseif($Path -eq $True) {
+
+       Write-Host 'Het bestand of folder bestaat al.'
+    } 
+     }
